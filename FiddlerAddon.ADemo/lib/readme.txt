@@ -1,0 +1,1 @@
+Unzip Fiddler.zip to this folder before building solution.
