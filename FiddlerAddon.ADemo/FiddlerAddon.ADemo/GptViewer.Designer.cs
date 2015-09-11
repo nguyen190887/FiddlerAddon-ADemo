@@ -1,6 +1,6 @@
 ﻿namespace FiddlerAddon.ADemo
 {
-    partial class GptViewerControl
+    partial class GptViewer
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,32 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lstvGpt = new System.Windows.Forms.ListView();
+            this.Field = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Value = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // label1
+            // lstvGpt
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(63, 58);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(165, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Hello! This is GPT Viewer control.";
+            this.lstvGpt.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Field,
+            this.Value});
+            this.lstvGpt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstvGpt.Location = new System.Drawing.Point(0, 0);
+            this.lstvGpt.Name = "lstvGpt";
+            this.lstvGpt.Size = new System.Drawing.Size(340, 210);
+            this.lstvGpt.TabIndex = 0;
+            this.lstvGpt.UseCompatibleStateImageBehavior = false;
+            this.lstvGpt.View = System.Windows.Forms.View.Details;
             // 
-            // GptViewerControl
+            // GptViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
-            this.Name = "GptViewerControl";
+            this.Controls.Add(this.lstvGpt);
+            this.Name = "GptViewer";
             this.Size = new System.Drawing.Size(340, 210);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListView lstvGpt;
+        private System.Windows.Forms.ColumnHeader Field;
+        private System.Windows.Forms.ColumnHeader Value;
+
     }
 }

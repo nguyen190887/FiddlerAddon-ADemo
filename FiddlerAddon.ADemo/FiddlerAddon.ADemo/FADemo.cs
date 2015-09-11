@@ -9,36 +9,13 @@ using System.Windows.Forms;
 public class FADemo : IFiddlerExtension
 {
     private TabPage _page;
-    private GptViewerControl _viewer;
+    private GptViewer _viewer;
+    private Session[] _sessions;
 
-    //#region IAutoTamper Members
-
-    //public void AutoTamperRequestAfter(Session oSession)
-    //{
-
-    //}
-
-    //public void AutoTamperRequestBefore(Session oSession)
-    //{
-
-    //}
-
-    //public void AutoTamperResponseAfter(Session oSession)
-    //{
-
-    //}
-
-    //public void AutoTamperResponseBefore(Session oSession)
-    //{
-
-    //}
-
-    //public void OnBeforeReturningError(Session oSession)
-    //{
-
-    //}
-
-    //#endregion
+    private const string FIELD_DARTSITE = "iu";
+    private const string FIELD_SIZE = "sz";
+    private const string FIELD_SPONSORSHIP = "scp";
+    private const string FIELD_CUSTPARAM = "cust_params";
 
     #region IFiddlerExtension Members
 
@@ -63,16 +40,69 @@ public class FADemo : IFiddlerExtension
     {
         if (!FiddlerApplication.isClosing && FiddlerApplication.UI.tabsViews.SelectedTab == _page)
         {
+            FiddlerApplication.UI.tabsViews.SelectedIndexChanged -= tabsViews_SelectedIndexChanged;
+
             LoadPage();
         }
     }
 
     private void LoadPage()
     {
-        _viewer = new GptViewerControl();
+        _viewer = new GptViewer();
         _page.Controls.Add(_viewer);
         _viewer.Dock = DockStyle.Fill;
+
+        FiddlerApplication.CalculateReport += FiddlerApplication_CalculateReport;
+
+        _sessions = FiddlerApplication.UI.GetSelectedSessions();
+        BindGptData();
+    }
+
+    void FiddlerApplication_CalculateReport(Session[] _arrSessions)
+    {
+        _sessions = _arrSessions;
+        BindGptData();
+    }
+
+    private void BindGptData()
+    {
+        if (_sessions.Length > 0)
+        {
+            var session = _sessions[0];
+            int questionIndex = session.PathAndQuery.IndexOf("?");
+            if (questionIndex >= 0)
+            {
+                string qs = session.PathAndQuery.Substring(questionIndex + 1);
+                var collection = Fiddler.Utilities.ParseQueryString(qs);
+
+                // Extract data
+                var gptRecord = new GptRecord();
+                foreach (string key in collection)
+                {
+                    switch (key.ToLower())
+                    {
+                        case FIELD_DARTSITE:
+                            gptRecord.DartSite = collection[key];
+                            break;
+                        case FIELD_SIZE:
+                            gptRecord.Size = collection[key];
+                            break;
+                        case FIELD_SPONSORSHIP:
+                            gptRecord.Sponsorship = collection[key];
+                            break;
+                        case FIELD_CUSTPARAM:
+                            gptRecord.CustParams = collection[key];
+                            break;
+                    }
+                }
+
+                _viewer.DisplayData(gptRecord);
+            }
+        }
     }
 
     #endregion
+
+
+    
 }

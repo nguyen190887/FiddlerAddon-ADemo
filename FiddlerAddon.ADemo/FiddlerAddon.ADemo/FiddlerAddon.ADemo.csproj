@@ -42,17 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FADemo.cs" />
-    <Compile Include="GptViewerControl.cs">
+    <Compile Include="GptViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GptViewerControl.Designer.cs">
-      <DependentUpon>GptViewerControl.cs</DependentUpon>
+    <Compile Include="GptViewer.Designer.cs">
+      <DependentUpon>GptViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GptViewerControl.resx">
-      <DependentUpon>GptViewerControl.cs</DependentUpon>
+    <EmbeddedResource Include="GptViewer.resx">
+      <DependentUpon>GptViewer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
