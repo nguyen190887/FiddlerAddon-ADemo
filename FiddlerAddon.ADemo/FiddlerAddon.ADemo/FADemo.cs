@@ -103,6 +103,4 @@ public class FADemo : IFiddlerExtension
 
     #endregion
 
-
-    
 }
